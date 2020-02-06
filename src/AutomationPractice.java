@@ -4,9 +4,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 
-import javax.swing.*;
-import java.util.concurrent.TimeUnit;
-
 public class AutomationPractice {
     public static void main(String[] args) throws Exception{
 
@@ -17,8 +14,9 @@ public class AutomationPractice {
         WebElement product= driver.findElement(By.xpath("//ul[@id='homefeatured']//div[@class='product-container'][1]"));
         Actions over=new Actions(driver);
         over.moveToElement(product).perform();
-        By locator = By.xpath("//a[@title='Add to cart']");
-        driver.click(locator);
+        WebElement locator= driver.findElement(By.xpath("//a[@title='Add to cart']"));
+        locator.click();
+
 
 
 

@@ -10,20 +10,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file://$USER_HOME$/Downloads/selenium-java-3.141.59" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="file://$USER_HOME$/Downloads/selenium-java-3.141.59" />
-        </SOURCES>
-        <jarDirectory url="file://$USER_HOME$/Downloads/selenium-java-3.141.59" recursive="false" />
-        <jarDirectory url="file://$USER_HOME$/Downloads/selenium-java-3.141.59" recursive="false" type="SOURCES" />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/selenium-server-standalone-3.141.59.jar!/" />
+          <root url="jar://$USER_HOME$/OneDrive - ENDAVA/Documents/codigo/jars/selenium-server-standalone-3.141.59.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
