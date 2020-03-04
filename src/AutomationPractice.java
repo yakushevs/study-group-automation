@@ -11,15 +11,19 @@ import java.util.concurrent.TimeUnit;
 import static org.openqa.selenium.WebDriver.*;
 
 public class AutomationPractice {
-    public static void main(String[] args) throws Exception{
-
+    public static WebDriver configuracionDriver(String pagina) {
         System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
         WebDriver driver=new ChromeDriver();
         WebDriverWait wait = new WebDriverWait(driver,2);
         System.out.println("Ir a la página");
-        driver.navigate().to("http://automationpractice.com/index.php?");
+        driver.navigate().to(pagina);
         driver.manage().window().maximize();
+        return driver;
+    };
+    public static void main(String[] args) throws Exception{
 
+        WebDriver driver= configuracionDriver("http://automationpractice.com/index.php?");
+        /*
         JavascriptExecutor js= (JavascriptExecutor) driver;
         System.out.println("Adicionar producto popular");
         js.executeScript("window.scrollTo(0,1200)");
@@ -87,7 +91,7 @@ public class AutomationPractice {
 
         //driver.close();
 
-
+*/
 
     }
 
