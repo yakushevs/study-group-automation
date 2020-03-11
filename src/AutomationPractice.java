@@ -28,17 +28,17 @@ public class AutomationPractice {
         //propiedades
         private boolean mouseOverStatus;
         private WebElement btnAddToCart, btnQuickView, btnMore, imgProducto;
-        private float valor;
-        private String nombreProducto, categoriaProducto;
+        private float value;
+        private String productName, productCategory;
 
         Producto () {
         }
 
         //Acciones o metodos
-        public static seleccionar(int indexProducto) {
+        public static SelectProduct(int productIndex) {
         }
 
-        public static adicionar(int indexProducto){
+        public static addProduct(int productIndex){
         }
    }
 
