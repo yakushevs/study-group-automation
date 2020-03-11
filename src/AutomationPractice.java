@@ -23,19 +23,22 @@ public class AutomationPractice {
         return driver;
     };
 
-    class Producto {
+   private class Product {
 
         //propiedades
         private boolean mouseOverStatus;
-        private WebElement btnAddToCart, btnQuickView, btnMore, imgProducto;
+        private WebElement btnAddToCart, btnQuickView, btnMore, imgProduct;
         private float value;
         private String productName, productCategory;
 
-        Producto () {
+        public Product () {
         }
 
         //Acciones o metodos
-        public static SelectProduct(int productIndex) {
+        public static selectTab(int productIndex) {
+            WebElement tabPopular=driver.findElement(By.xpath("//*[@class=\"homefeatured\"]"));
+            tabPopular.click();
+
         }
 
         public static addProduct(int productIndex){
@@ -47,19 +50,30 @@ public class AutomationPractice {
         WebDriver driver= configuracionDriver("http://automationpractice.com/index.php?");
 
         Actions over=new Actions(driver);
+        //select tab - variable entrada xpath
 
-        WebElement tabPopular=driver.findElement(By.xpath("//*[@class=\"homefeatured\"]"));
-        tabPopular.click();
+        //fin metodo select
+        //select any product - input variable product index
+        //select any product - input Product name & price
         WebElement product= driver.findElement(By.xpath("//ul[@id='homefeatured']//li[contains(@class,'ajax_block_product')][7]"));
         over.moveToElement(product).perform();
+        // end of select any product
+        // add to cart
         WebElement addToCartButton= product.findElement(By.xpath("div//a[contains(@class,'ajax_add_to_cart_button')]"));
         addToCartButton.click();
         Thread.sleep(5000);
+        // end of add to cart
+        //continue shopping
         WebElement btnContinue = driver.findElement(By.xpath("//span[contains(@class,'continue')]"));
         btnContinue.click();
         Thread.sleep(5000);
-
-
+        //end of continue shopping
+        //add to cart & continue shopping
+            // select tab
+            // select any product
+            // add to cart
+            // continue shopping
+        //end of add to cart & continue shopping
         WebElement tabBestseller=driver.findElement(By.xpath("//*[@class=\"blockbestsellers\"]"));
         tabBestseller.click();
         WebElement productBeste= driver.findElement(By.xpath("//ul[@id='blockbestsellers']//li[contains(@class,'ajax_block_product')][4]"));
