@@ -3,13 +3,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.Currency;
-import java.util.concurrent.TimeUnit;
-import static org.openqa.selenium.WebDriver.*;
 
 public class AutomationPractice {
 
@@ -25,50 +19,62 @@ public class AutomationPractice {
 
    private class Product {
 
-        //propiedades
+
+       //propiedades
         private boolean mouseOverStatus;
         private WebElement btnAddToCart, btnQuickView, btnMore, imgProduct;
         private float value;
         private String productName, productCategory;
+        private Object WebDriver;
+        private Object Action;
+        WebDriver driver= configuracionDriver("http://automationpractice.com/index.php?");
+        Actions over=new Actions(driver);
 
         public Product () {
         }
 
         //Acciones o metodos
-        public static selectTab(int productIndex) {
+        public  void selectTab(int productIndex) {
+
             WebElement tabPopular=driver.findElement(By.xpath("//*[@class=\"homefeatured\"]"));
             tabPopular.click();
 
         }
 
-        public static addProduct(int productIndex){
+        public WebElement  selectAnyProduct(int productIndex){
+            WebElement product= driver.findElement(By.xpath("//ul[@id='homefeatured']//li[contains(@class,'ajax_block_product')][7]"));
+            over.moveToElement(product).perform();
+            //select any product - input Product name & price -- to do
+
+            return product;
+        }
+
+        public void addToCart(WebElement product){
+            WebElement addToCartButton= product.findElement(By.xpath("div//a[contains(@class,'ajax_add_to_cart_button')]"));
+            addToCartButton.click();
+            Thread.sleep(5000);
+
+        }
+
+        public void continueShopping(){
+            WebElement btnContinue = driver.findElement(By.xpath("//span[contains(@class,'continue')]"));
+            btnContinue.click();
+            Thread.sleep(5000);
+        }
+
+        public void addToCart_continueShopping(){
+            selectTab();
+            selectAnyProduct();
+            addToCart();
+            continueShopping();
+            
         }
    }
 
     public static void main(String[] args) throws Exception{
 
-        WebDriver driver= configuracionDriver("http://automationpractice.com/index.php?");
 
-        Actions over=new Actions(driver);
-        //select tab - variable entrada xpath
-
-        //fin metodo select
-        //select any product - input variable product index
-        //select any product - input Product name & price
-        WebElement product= driver.findElement(By.xpath("//ul[@id='homefeatured']//li[contains(@class,'ajax_block_product')][7]"));
-        over.moveToElement(product).perform();
-        // end of select any product
-        // add to cart
-        WebElement addToCartButton= product.findElement(By.xpath("div//a[contains(@class,'ajax_add_to_cart_button')]"));
-        addToCartButton.click();
-        Thread.sleep(5000);
-        // end of add to cart
-        //continue shopping
-        WebElement btnContinue = driver.findElement(By.xpath("//span[contains(@class,'continue')]"));
-        btnContinue.click();
-        Thread.sleep(5000);
-        //end of continue shopping
-        //add to cart & continue shopping
+            //add to cart & continue shopping
             // select tab
             // select any product
             // add to cart
