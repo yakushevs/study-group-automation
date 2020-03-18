@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class AutomationPractice {
 
     public static WebDriver configuracionDriver(String pagina) {
-        System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "drivers/chromedriver");
         WebDriver driver=new ChromeDriver();
         WebDriverWait wait = new WebDriverWait(driver,2);
         System.out.println("Ir a la página");
@@ -17,7 +17,7 @@ public class AutomationPractice {
         return driver;
     };
 
-   private class Product {
+   private static class Product {
 
 
        //propiedades
@@ -27,52 +27,61 @@ public class AutomationPractice {
         private String productName, productCategory;
         private Object WebDriver;
         private Object Action;
-        WebDriver driver= configuracionDriver("http://automationpractice.com/index.php?");
-        Actions over=new Actions(driver);
+        private WebDriver driver;
+        private Actions over;
 
-        public Product () {
+        public Product (WebDriver driver) {
+            this.driver=driver;
+            this.over=new Actions(driver);
         }
 
         //Acciones o metodos
         public  void selectTab(int productIndex) {
+            if (productIndex==1) {
+                WebElement tabPopular = this.driver.findElement(By.xpath("//*[@class=\"homefeatured\"]"));
+                tabPopular.click();
+            }
+            else {
+                WebElement tabBestseller = this.driver.findElement(By.xpath("//*[@class=\"blockbestsellers\"]"));
+                tabBestseller.click();
+            }
 
-            WebElement tabPopular=driver.findElement(By.xpath("//*[@class=\"homefeatured\"]"));
-            tabPopular.click();
-
-        }
+            }
 
         public WebElement  selectAnyProduct(int productIndex){
-            WebElement product= driver.findElement(By.xpath("//ul[@id='homefeatured']//li[contains(@class,'ajax_block_product')][7]"));
+            WebElement product= this.driver.findElement(By.xpath("//ul[@id='homefeatured']//li[contains(@class,'ajax_block_product')]"+'['+productIndex+']'));
             over.moveToElement(product).perform();
             //select any product - input Product name & price -- to do
 
             return product;
         }
 
-        public void addToCart(WebElement product){
+        public void addToCart(WebElement product) throws InterruptedException {
             WebElement addToCartButton= product.findElement(By.xpath("div//a[contains(@class,'ajax_add_to_cart_button')]"));
             addToCartButton.click();
             Thread.sleep(5000);
 
         }
 
-        public void continueShopping(){
-            WebElement btnContinue = driver.findElement(By.xpath("//span[contains(@class,'continue')]"));
+        public void continueShopping() throws InterruptedException {
+            WebElement btnContinue = this.driver.findElement(By.xpath("//span[contains(@class,'continue')]"));
             btnContinue.click();
             Thread.sleep(5000);
         }
 
-        public void addToCart_continueShopping(){
-            selectTab();
-            selectAnyProduct();
-            addToCart();
-            continueShopping();
+        public void addToCart_continueShopping() throws InterruptedException {
+            this.selectTab(1);
+            WebElement product=this.selectAnyProduct(7);
+            this.addToCart(product);
+            this.continueShopping();
             
         }
    }
 
     public static void main(String[] args) throws Exception{
-
+        WebDriver driver= configuracionDriver("http://automationpractice.com/index.php?");
+        Product product = new Product(driver);
+                product.addToCart_continueShopping();
 
             //add to cart & continue shopping
             // select tab
@@ -80,6 +89,8 @@ public class AutomationPractice {
             // add to cart
             // continue shopping
         //end of add to cart & continue shopping
+       /*
+
         WebElement tabBestseller=driver.findElement(By.xpath("//*[@class=\"blockbestsellers\"]"));
         tabBestseller.click();
         WebElement productBeste= driver.findElement(By.xpath("//ul[@id='blockbestsellers']//li[contains(@class,'ajax_block_product')][4]"));
@@ -114,10 +125,10 @@ public class AutomationPractice {
 
 
 
-        //driver.close();
+
 
 */
-
+        driver.close();
     }
 
 
