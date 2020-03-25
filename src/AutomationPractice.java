@@ -22,7 +22,7 @@ public class AutomationPractice {
 
        //propiedades
         private boolean mouseOverStatus;
-        private WebElement btnAddToCart, btnQuickView, btnMore, imgProduct;
+        private WebElement btnAddToCart, btnQuickView, btnMore, imgProduct,product;
         private float value;
         private int productIndex;
         private String tabName,productName, productCategory;
@@ -51,21 +51,20 @@ public class AutomationPractice {
 
         public WebElement  selectAnyProduct(String tabName,int productIndex){
 
+            WebElement product;
             if (tabName=="popular"){
-            WebElement product= this.driver.findElement(By.xpath("//ul[@id='homefeatured']//li[contains(@class,'ajax_block_product')]"+'['+productIndex+']'));
-            over.moveToElement(product).perform();
-            //select any product - input Product name & price -- to do
-                return  product;
+             product= this.driver.findElement(By.xpath("//ul[@id='homefeatured']//li[contains(@class,'ajax_block_product')]"+'['+productIndex+']'));
+                //select any product - input Product name & price -- to do
 
             }else {
 
-                WebElement product= driver.findElement(By.xpath("//ul[@id='blockbestsellers']//li[contains(@class,'ajax_block_product')]"+'['+productIndex+']'));
-                over.moveToElement(product).perform();
+                product= driver.findElement(By.xpath("//ul[@id='blockbestsellers']//li[contains(@class,'ajax_block_product')]"+'['+productIndex+']'));
 
-                return  product;
 
             }
+            over.moveToElement(product).perform();
 
+            return product;
         }
 
         public void addToCart(WebElement product) throws InterruptedException {
@@ -95,56 +94,19 @@ public class AutomationPractice {
        WebDriver driver= configuracionDriver("http://automationpractice.com/index.php?");
         Product product = new Product(driver);
                 product.addToCart_continueShopping("popular",1);
-                product.addToCart_continueShopping("bestie",7);
+                product.selectAnyProduct("bestie",7);
                 product.addToCart_continueShopping("popular",3);
 
 
              //add to cart & continue shopping
-            // select tab
-            // select any product
+             // select tab
+             // select any product
             // add to cart
             // continue shopping
             //end of add to cart & continue shopping
-            /*
 
-        WebElement tabBestseller=driver.findElement(By.xpath("//*[@class=\"blockbestsellers\"]"));
-        tabBestseller.click();
-        WebElement productBeste= driver.findElement(By.xpath("//ul[@id='blockbestsellers']//li[contains(@class,'ajax_block_product')][4]"));
-        over.moveToElement(productBeste).perform();
-        WebElement btnAddBestie = productBeste.findElement(By.xpath("div//a[contains(@class,'ajax_add_to_cart_button')]"));
-        btnAddBestie.click();
-        Thread.sleep(5000);
-        WebElement btnContinueBestie = productBeste.findElement(By.xpath("//span[contains(@class,'continue')]"));
-        btnContinueBestie.click();
-        Thread.sleep(5000);
-
-
-        //--- Segundo producto de best seller
-        System.out.println("Seleccionar producto");
-        productBeste= driver.findElement(By.xpath("//ul[@id='blockbestsellers']//li[contains(@class,'ajax_block_product')][6]"));
-        over.moveToElement(productBeste).perform();
-        Thread.sleep(5000);
-
-        btnAddBestie = productBeste.findElement(By.xpath("div//a[contains(@class,'ajax_add_to_cart_button')]"));
-        btnAddBestie.click();
-        Thread.sleep(5000);
-        System.out.println("Producto Best Seller adicionado");
-
-
-        Thread.sleep(5000);
-        btnContinueBestie = productBeste.findElement(By.xpath("//span[contains(@class,'continue')]"));
-        btnContinueBestie.click();
-        Thread.sleep(5000);
-        System.out.println("continue shopping on best selling");
-
-
-
-
-
-
-
-*/
         driver.close();
+
     }
 
 
