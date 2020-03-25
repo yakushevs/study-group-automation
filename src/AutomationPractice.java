@@ -24,7 +24,8 @@ public class AutomationPractice {
         private boolean mouseOverStatus;
         private WebElement btnAddToCart, btnQuickView, btnMore, imgProduct;
         private float value;
-        private String productName, productCategory;
+        private int productIndex;
+        private String tabName,productName, productCategory;
         private Object WebDriver;
         private Object Action;
         private WebDriver driver;
@@ -36,8 +37,8 @@ public class AutomationPractice {
         }
 
         //Acciones o metodos
-        public  void selectTab(int productIndex) {
-            if (productIndex==1) {
+        public  void selectTab(String tabName) {
+            if (tabName=="popular") {
                 WebElement tabPopular = this.driver.findElement(By.xpath("//*[@class=\"homefeatured\"]"));
                 tabPopular.click();
             }
@@ -46,14 +47,25 @@ public class AutomationPractice {
                 tabBestseller.click();
             }
 
-            }
+        }
 
-        public WebElement  selectAnyProduct(int productIndex){
+        public WebElement  selectAnyProduct(String tabName,int productIndex){
+
+            if (tabName=="popular"){
             WebElement product= this.driver.findElement(By.xpath("//ul[@id='homefeatured']//li[contains(@class,'ajax_block_product')]"+'['+productIndex+']'));
             over.moveToElement(product).perform();
             //select any product - input Product name & price -- to do
+                return  product;
 
-            return product;
+            }else {
+
+                WebElement product= driver.findElement(By.xpath("//ul[@id='blockbestsellers']//li[contains(@class,'ajax_block_product')]"+'['+productIndex+']'));
+                over.moveToElement(product).perform();
+
+                return  product;
+
+            }
+
         }
 
         public void addToCart(WebElement product) throws InterruptedException {
@@ -69,9 +81,9 @@ public class AutomationPractice {
             Thread.sleep(5000);
         }
 
-        public void addToCart_continueShopping() throws InterruptedException {
-            this.selectTab(1);
-            WebElement product=this.selectAnyProduct(7);
+        public void addToCart_continueShopping(String tabName,int productIndex) throws InterruptedException {
+            this.selectTab(tabName);
+            WebElement product=this.selectAnyProduct(tabName,productIndex);
             this.addToCart(product);
             this.continueShopping();
             
@@ -79,17 +91,21 @@ public class AutomationPractice {
    }
 
     public static void main(String[] args) throws Exception{
-        WebDriver driver= configuracionDriver("http://automationpractice.com/index.php?");
-        Product product = new Product(driver);
-                product.addToCart_continueShopping();
 
-            //add to cart & continue shopping
+       WebDriver driver= configuracionDriver("http://automationpractice.com/index.php?");
+        Product product = new Product(driver);
+                product.addToCart_continueShopping("popular",1);
+                product.addToCart_continueShopping("bestie",7);
+                product.addToCart_continueShopping("popular",3);
+
+
+             //add to cart & continue shopping
             // select tab
             // select any product
             // add to cart
             // continue shopping
-        //end of add to cart & continue shopping
-       /*
+            //end of add to cart & continue shopping
+            /*
 
         WebElement tabBestseller=driver.findElement(By.xpath("//*[@class=\"blockbestsellers\"]"));
         tabBestseller.click();
