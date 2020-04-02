@@ -107,12 +107,12 @@ public class AutomationPractice {
     public static void main(String[] args) throws Exception{
 
        WebDriver driver= configuracionDriver("http://automationpractice.com/index.php?");
-        Product product = new Product(driver);
+        Product product = new Product(driver); //First constructor.
                 product.addToCart_continueShopping("popular",1);
                 product.selectAnyProduct("bestie",7);
                 product.addToCart_continueShopping("popular",3);
 
-        Product product2 = new Product(driver,"popular",1);
+        Product product2 = new Product(driver,"popular",1); //second constructor.
                 product2.addToCart_continueShopping();
 
         Product product3 = new Product(driver,"bestie",1);

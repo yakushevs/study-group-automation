@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="82d94da4-8b80-47bb-a2bd-5dc5e817378b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/study-group-automation/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/study-group-automation/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/study-group-automation/AutomationPractice$Product.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/study-group-automation/AutomationPractice$Product.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/study-group-automation/AutomationPractice.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/study-group-automation/AutomationPractice.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AutomationPractice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutomationPractice.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
