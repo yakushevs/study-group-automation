@@ -7,12 +7,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class AutomationPractice {
 
-    public static WebDriver configuracionDriver(String pagina) {
+    public static WebDriver configuracionDriver(String page) {
         System.setProperty("webdriver.chrome.driver", "drivers/chromedriver");
         WebDriver driver=new ChromeDriver();
         WebDriverWait wait = new WebDriverWait(driver,2);
         System.out.println("Ir a la página");
-        driver.navigate().to(pagina);
+        driver.navigate().to(page);
         driver.manage().window().maximize();
         return driver;
     };
