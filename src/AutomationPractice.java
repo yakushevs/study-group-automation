@@ -20,14 +20,9 @@ public class AutomationPractice {
    private static class Product {
 
 
-       //propiedades
-        private boolean mouseOverStatus;
-        private WebElement btnAddToCart, btnQuickView, btnMore, imgProduct,product;
-        private float value;
+       //Properties
         private int productIndex;
-        private String tabName,productName, productCategory;
-        private Object WebDriver;
-        private Object Action;
+        private String tabName;
         private WebDriver driver;
         private Actions over;
 
@@ -40,10 +35,9 @@ public class AutomationPractice {
                  over=new Actions(driver);
             this.tabName=tabName;
             this.productIndex=productIndex;
-
         }
 
-        //Acciones o metodos
+        //Methods or Actions
         public  void selectTab(String tabName) {
             if (tabName=="popular") {
                 WebElement tabPopular = driver.findElement(By.xpath("//*[@class=\"homefeatured\"]"));
@@ -112,15 +106,11 @@ public class AutomationPractice {
                 product.selectAnyProduct("bestie",7);
                 product.addToCart_continueShopping("popular",3);
 
-        Product product2 = new Product(driver,"popular",1); //second constructor.
+        Product product2 = new Product(driver,"popular",1); //Second constructor.
                 product2.addToCart_continueShopping();
 
         Product product3 = new Product(driver,"bestie",1);
                 product3.addToCart_continueShopping();
-
-
-
-
 
               //add to cart & continue shopping
              // select tab
