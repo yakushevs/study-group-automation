@@ -12,14 +12,17 @@ public class OpenGoogle {
 
     public static void main(String[] args) throws InterruptedException {
 
+        //Before all
         WebDriverManager.chromedriver().version("80.0.3987.106").setup();
         WebDriver driver= new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("http://automationpractice.com/");
+
+        //test cases
         Product homepage = PageFactory.initElements(driver,Product.class);
         homepage.addToCart_continueShopping("popular",4);
 
-
+        //after all
 
         driver.close();
 

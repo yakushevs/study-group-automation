@@ -7,6 +7,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.List;
+
 
 public class Product {
 
@@ -24,6 +26,10 @@ public class Product {
     WebElement tabBestseller;
     @FindBy(xpath = "//span[contains(@class,'continue')]")
     WebElement btnContinue;
+    @FindAll(@FindBy(xpath="//ul[@id='homefeatured']//li[contains(@class,'ajax_block_product')]"))
+    List<WebElement> productsPopular;
+    @FindAll(@FindBy(xpath="//ul[@id='blockbestsellers']//li[contains(@class,'ajax_block_product')]"))
+    List<WebElement> productBestSeller;
 
 
 
@@ -55,12 +61,14 @@ public class Product {
 
             WebElement product;
             if (tabName=="popular"){
-                product= driver.findElement(By.xpath("//ul[@id='homefeatured']//li[contains(@class,'ajax_block_product')]"+'['+productIndex+']'));
+                product= productsPopular.get(productIndex);
+
                 //select any product - input Product name & price -- to do
 
             }else {
 
-                product= driver.findElement(By.xpath("//ul[@id='blockbestsellers']//li[contains(@class,'ajax_block_product')]"+'['+productIndex+']'));
+                product= productBestSeller.get(productIndex);
+
 
 
             }
@@ -70,6 +78,8 @@ public class Product {
         }
 
         public void addToCart(WebElement product) throws InterruptedException {
+
+
             WebElement addToCartButton= product.findElement(By.xpath("div//a[contains(@class,'ajax_add_to_cart_button')]"));
             addToCartButton.click();
             Thread.sleep(5000);
@@ -77,12 +87,13 @@ public class Product {
         }
 
         public void continueShopping() throws InterruptedException {
-            //WebElement btnContinue = this.driver.findElement(By.xpath("//span[contains(@class,'continue')]"));
+
             btnContinue.click();
             Thread.sleep(5000);
         }
 
         public void addToCart_continueShopping(String tabName,int productIndex) throws InterruptedException {
+
             selectTab(tabName);
             WebElement product=selectAnyProduct(tabName,productIndex);
             addToCart(product);
@@ -90,13 +101,7 @@ public class Product {
 
         }
 
-        public void addToCart_continueShopping() throws InterruptedException {
-            selectTab(tabName);
-            WebElement product=selectAnyProduct(tabName,productIndex);
-            addToCart(product);
-            continueShopping();
 
-        }
 
 
 
