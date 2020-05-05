@@ -1,30 +1,28 @@
 package e2e;
 
 import com.auto.ui.PageObject.Product;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import com.auto.ui.PageObject.ShoppingCart;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+
+public class TestAddProductHomePage extends TestBase {
+
+    Product homepage = PageFactory.initElements(driver,Product.class);
+    ShoppingCart carrito= PageFactory.initElements(driver,ShoppingCart.class);
+
+    @Test (testName = "Add to Cart")
+    public void AddProductsToCart() throws InterruptedException {
 
 
 
-public class OpenGoogle {
-
-    public static void main(String[] args) throws InterruptedException {
-
-        //Before all
-        WebDriverManager.chromedriver().version("80.0.3987.106").setup();
-        WebDriver driver= new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get("http://automationpractice.com/");
-
-        //test cases
-        Product homepage = PageFactory.initElements(driver,Product.class);
         homepage.addToCart_continueShopping("popular",4);
+        carrito.getsNumberOfProducts();
 
-        //after all
-
-        driver.close();
-
+        Assert.assertEquals(1,1);
     }
+
+
+
 }
