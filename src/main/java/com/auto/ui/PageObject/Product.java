@@ -7,6 +7,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -14,15 +15,14 @@ public class Product extends PageBase {
 
 
         //Properties
-        private int productIndex;
-        private String tabName;
+
         private WebDriver driver;
         private Actions over;
-
+        private WebElement product;
         //Elements
-    @FindBy(xpath ="//*[@class=\"homefeatured\"]" )
+    @FindBy(xpath ="//*[@class='homefeatured']" )
     WebElement tabPopular;
-    @FindBy(xpath = "//*[@class=\"blockbestsellers\"]")
+    @FindBy(xpath = "//*[@class='blockbestsellers']")
     WebElement tabBestseller;
     @FindBy(xpath = "//span[contains(@class,'continue')]")
     WebElement btnContinue;
@@ -35,23 +35,18 @@ public class Product extends PageBase {
 
         public Product (WebDriver driver) {
             this.driver=driver;
-            over=new Actions(driver);
+
         }
-        public Product(WebDriver driver,String tabName,int productIndex){
-            this.driver=driver;
-            over=new Actions(driver);
-            this.tabName=tabName;
-            this.productIndex=productIndex;
-        }
+
 
         //Methods or Actions
         public  void selectTab(String tabName) {
             if (tabName=="popular") {
-                //WebElement tabPopular = driver.findElement(By.xpath("//*[@class=\"homefeatured\"]"));
+
                 tabPopular.click();
             }
             else {
-               // WebElement tabBestseller = driver.findElement(By.xpath("//*[@class=\"blockbestsellers\"]"));
+
                 tabBestseller.click();
             }
 
@@ -59,37 +54,65 @@ public class Product extends PageBase {
 
         public WebElement  selectAnyProduct(String tabName,int productIndex){
 
-            WebElement product;
             if (tabName=="popular"){
                 product= productsPopular.get(productIndex);
 
-                //select any product - input Product name & price -- to do
+
 
             }else {
 
                 product= productBestSeller.get(productIndex);
 
-
-
             }
+            over=new Actions(driver);
             over.moveToElement(product).perform();
 
             return product;
         }
 
-        public void addToCart(WebElement product) throws InterruptedException {
+    public WebElement  selectAnyProduct(String tabName,String productName)  {
+
+
+        if (tabName=="popular"){
+
+            for (WebElement popular : productsPopular){
+
+                if(popular.getText().contains(productName)){
+                    product=popular;
+                    break;
+                }
+            }
+
+
+
+        }else {
+            for (WebElement bestseller : productBestSeller){
+                if(bestseller.getText().contains(productName)){
+                    product=bestseller;
+                    break;
+                }
+            }
+        }
+        over=new Actions(driver);
+        over.moveToElement(product).perform();
+
+        return product;
+    }
+
+
+    public void addToCart(WebElement product) throws InterruptedException {
 
 
             WebElement addToCartButton= product.findElement(By.xpath("div//a[contains(@class,'ajax_add_to_cart_button')]"));
             addToCartButton.click();
-            Thread.sleep(5000);
+           Thread.sleep(1500);
 
         }
 
         public void continueShopping() throws InterruptedException {
 
             btnContinue.click();
-            Thread.sleep(5000);
+            Thread.sleep(1500);
         }
 
         public void addToCart_continueShopping(String tabName,int productIndex) throws InterruptedException {
@@ -100,7 +123,13 @@ public class Product extends PageBase {
             continueShopping();
 
         }
+    public void addToCart_continueShopping(String tabName,String productName) throws InterruptedException {
 
+        selectTab(tabName);
+        WebElement product=selectAnyProduct(tabName,productName);
+        addToCart(product);
+        continueShopping();
+    }
 
 
 
