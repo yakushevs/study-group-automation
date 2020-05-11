@@ -30,18 +30,17 @@ public void Beforeall(){
 
         Assert.assertEquals(carrito.getsNumberOfProducts(),2);
 }
-
     @Test (testName = "Add to Cart by productIndex")
     public void AddProductsToCart() throws InterruptedException {
 
         homepage.addToCart_continueShopping("popular",4);
         homepage.addToCart_continueShopping("popular",1);
-        homepage.addToCart_continueShopping("popular",3);
-        carrito.getsNumberOfProducts();
+        homepage.addToCart_continueShopping("popular",2);
 
         Assert.assertEquals(carrito.getsNumberOfProducts(),5);
 
     }
+
 
 
 }
