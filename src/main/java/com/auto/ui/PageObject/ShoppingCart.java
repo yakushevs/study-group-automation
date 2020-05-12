@@ -13,7 +13,7 @@ public class ShoppingCart extends PageBase {
 
 
         int numberofproducts= Integer.parseInt(contador.getText());
-
+        System.out.println("Numero de productos: "+numberofproducts);
 
         return numberofproducts;
     }

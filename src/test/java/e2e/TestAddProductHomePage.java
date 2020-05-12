@@ -22,22 +22,22 @@ public void Beforeall(){
 }
 
 
-@Test(testName = "Add to Cart by Product Name")
+@Test(testName = "Add to Cart by Product Name",priority = 1)
     public void AddProductByName() throws InterruptedException{
 
         homepage.addToCart_continueShopping("popular","Printed Dress");
         homepage.addToCart_continueShopping("popular","Faded Short Sleeve T-shirts");
 
-        Assert.assertEquals(carrito.getsNumberOfProducts(),2);
+        Assert.assertEquals(carrito.getsNumberOfProducts(),5);
 }
-    @Test (testName = "Add to Cart by productIndex")
+    @Test (testName = "Add to Cart by productIndex",priority = 0)
     public void AddProductsToCart() throws InterruptedException {
 
         homepage.addToCart_continueShopping("popular",4);
         homepage.addToCart_continueShopping("popular",1);
         homepage.addToCart_continueShopping("popular",2);
 
-        Assert.assertEquals(carrito.getsNumberOfProducts(),5);
+        Assert.assertEquals(carrito.getsNumberOfProducts(),3);
 
     }
 

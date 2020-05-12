@@ -18,6 +18,7 @@ public class Product extends PageBase {
 
         private WebDriver driver;
         private Actions over;
+        //= new Actions(driver);
         private WebElement product;
         //Elements
     @FindBy(xpath ="//*[@class='homefeatured']" )
@@ -35,7 +36,7 @@ public class Product extends PageBase {
 
         public Product (WebDriver driver) {
             this.driver=driver;
-
+            this.over= new Actions(this.driver);
         }
 
 
@@ -51,27 +52,7 @@ public class Product extends PageBase {
             }
 
         }
-
-        public WebElement  selectAnyProduct(String tabName,int productIndex){
-
-            if (tabName=="popular"){
-                product= productsPopular.get(productIndex);
-
-
-
-            }else {
-
-                product= productBestSeller.get(productIndex);
-
-            }
-            over=new Actions(driver);
-            over.moveToElement(product).perform();
-
-            return product;
-        }
-
     public WebElement  selectAnyProduct(String tabName,String productName)  {
-
 
         if (tabName=="popular"){
 
@@ -83,8 +64,6 @@ public class Product extends PageBase {
                 }
             }
 
-
-
         }else {
             for (WebElement bestseller : productBestSeller){
                 if(bestseller.getText().contains(productName)){
@@ -93,11 +72,25 @@ public class Product extends PageBase {
                 }
             }
         }
-        over=new Actions(driver);
-        over.moveToElement(product).perform();
 
+        over.moveToElement(product).perform();
         return product;
     }
+
+
+    public WebElement  selectAnyProduct(String tabName,int productIndex){
+
+            if (tabName=="popular"){
+                product= productsPopular.get(productIndex);
+            }else {
+                product= productBestSeller.get(productIndex);
+            }
+
+            over.moveToElement(product).perform();
+
+            return product;
+        }
+
 
 
     public void addToCart(WebElement product) throws InterruptedException {
@@ -105,7 +98,7 @@ public class Product extends PageBase {
 
             WebElement addToCartButton= product.findElement(By.xpath("div//a[contains(@class,'ajax_add_to_cart_button')]"));
             addToCartButton.click();
-           Thread.sleep(1500);
+            Thread.sleep(1500);
 
         }
 
@@ -113,15 +106,6 @@ public class Product extends PageBase {
 
             btnContinue.click();
             Thread.sleep(1500);
-        }
-
-        public void addToCart_continueShopping(String tabName,int productIndex) throws InterruptedException {
-
-            selectTab(tabName);
-            WebElement product=selectAnyProduct(tabName,productIndex);
-            addToCart(product);
-            continueShopping();
-
         }
     public void addToCart_continueShopping(String tabName,String productName) throws InterruptedException {
 
@@ -131,12 +115,13 @@ public class Product extends PageBase {
         continueShopping();
     }
 
+        public void addToCart_continueShopping(String tabName,int productIndex) throws InterruptedException {
 
+            selectTab(tabName);
+            WebElement product=selectAnyProduct(tabName,productIndex);
+            addToCart(product);
+            continueShopping();
 
+        }
 
-
-
-    }
-
-
-
+}
