@@ -15,10 +15,8 @@ public class Product extends PageBase {
 
 
         //Properties
-
         private WebDriver driver;
         private Actions over;
-        //= new Actions(driver);
         private WebElement product;
         //Elements
     @FindBy(xpath ="//*[@class='homefeatured']" )
