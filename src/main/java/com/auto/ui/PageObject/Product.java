@@ -6,8 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
-
-
 import java.util.List;
 
 
@@ -15,9 +13,8 @@ public class Product extends PageBase {
 
 
         //Properties
-        private WebDriver driver;
-        private Actions over;
         private WebElement product;
+
         //Elements
     @FindBy(xpath ="//*[@class='homefeatured']" )
     WebElement tabPopular;
@@ -33,8 +30,8 @@ public class Product extends PageBase {
 
 
         public Product (WebDriver driver) {
-            this.driver=driver;
-            this.over= new Actions(this.driver);
+
+           super(driver);
         }
 
 
@@ -71,7 +68,7 @@ public class Product extends PageBase {
             }
         }
 
-        over.moveToElement(product).perform();
+        hoverElements(product);
         return product;
     }
 
@@ -84,8 +81,8 @@ public class Product extends PageBase {
                 product= productBestSeller.get(productIndex);
             }
 
-            over.moveToElement(product).perform();
 
+            hoverElements(product);
             return product;
         }
 

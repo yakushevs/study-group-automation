@@ -5,8 +5,10 @@ import com.auto.ui.PageObject.ShoppingCart;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class TestAddProductHomePage extends TestBase {
@@ -29,7 +31,11 @@ public void Beforeall(){
         homepage.addToCart_continueShopping("popular","Faded Short Sleeve T-shirts");
 
         Assert.assertEquals(carrito.getsNumberOfProducts(),5);
+
+
 }
+
+
     @Test (testName = "Add to Cart by productIndex",priority = 0)
     public void AddProductsToCart() throws InterruptedException {
 
@@ -41,6 +47,19 @@ public void Beforeall(){
 
     }
 
+@Test (testName = "Product in cart",priority = 2)
+    public void ProductsinCart() throws InterruptedException {
 
+    Thread.sleep(1500);
+    List<String> listica = new ArrayList<>();
+    listica.add("Printed Summer Dress");
+    listica.add("Blouse");
+    listica.add("Printed Dress");
+    listica.add("Faded Short Sleeve T-shirts");
+     System.out.println(listica);
+    //carrito.getsProductsNameInCart();
+    Assert.assertEquals(carrito.getsProductsNameInCart(),listica);
+
+}
 
 }
