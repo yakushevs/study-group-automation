@@ -1,6 +1,7 @@
 package com.auto.ui.PageObject;
 
 
+import org.apache.commons.compress.utils.Lists;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
@@ -8,6 +9,7 @@ import org.openqa.selenium.support.FindBy;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ShoppingCart extends PageBase {
@@ -19,7 +21,8 @@ public class ShoppingCart extends PageBase {
     @FindAll
     (@FindBy(xpath = "//a[@class='cart_block_product_name']"))
        List <WebElement> productInCart;
-    List <String> prendas = new ArrayList <> ();
+    List <String> prendas = Lists.newArrayList();
+    //List <String> prendas= new ArrayList<>();
 
     public ShoppingCart(WebDriver driver) {
         super(driver);
@@ -28,13 +31,13 @@ public class ShoppingCart extends PageBase {
     public List<String> getsProductsNameInCart()  {
 
         hoverElements(carritoHeader);
-
+        prendas.clear();
         for (WebElement product: productInCart){
             //System.out.println(product.getAttribute("title"));
             prendas.add(product.getAttribute("title"));
 
         }
-
+        System.out.println("Prendas: "+ prendas);
         return prendas;
 
     }

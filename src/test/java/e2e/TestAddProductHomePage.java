@@ -2,12 +2,17 @@ package e2e;
 
 import com.auto.ui.PageObject.Product;
 import com.auto.ui.PageObject.ShoppingCart;
+import org.apache.commons.compress.utils.Lists;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -51,15 +56,22 @@ public void Beforeall(){
     public void ProductsinCart() throws InterruptedException {
 
     Thread.sleep(1500);
-    List<String> listica = new ArrayList<>();
-    listica.add("Printed Summer Dress");
-    listica.add("Blouse");
-    listica.add("Printed Dress");
-    listica.add("Faded Short Sleeve T-shirts");
-     System.out.println(listica);
-    //carrito.getsProductsNameInCart();
-    Assert.assertEquals(carrito.getsProductsNameInCart(),listica);
 
+    List<String> listica= Lists.newArrayList();
+    //List<String> listica = new ArrayList<>();
+
+    listica.add("Blouse");
+    listica.add("Faded Short Sleeve T-shirts");
+    listica.add("Printed Summer Dress");
+    listica.add("Printed Dress");
+
+
+         //Assert.assertEquals(carrito.getsProductsNameInCart(),listica);
+    assertThat(carrito.getsProductsNameInCart(),containsInAnyOrder(listica.toArray()));
+    //Assert.assertEquals(carrito.getsProductsNameInCart(),listica);
+    System.out.println("Listica: "+ listica);
+    System.out.println("Prendas desde metodo: "+ carrito.getsProductsNameInCart().toArray());
+    System.out.println("Prendas desde metodo: "+ carrito.getsProductsNameInCart().size());
 }
 
 }
