@@ -3,6 +3,8 @@ package e2e;
 import com.auto.ui.PageObject.Product;
 import com.auto.ui.PageObject.ShoppingCart;
 import org.apache.commons.compress.utils.Lists;
+import org.assertj.core.api.Condition;
+import org.hamcrest.Matchers;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.BeforeSuite;
@@ -11,9 +13,10 @@ import org.testng.annotations.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.List;
+
+//import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class TestAddProductHomePage extends TestBase {
@@ -52,7 +55,7 @@ public void Beforeall(){
 
     }
 
-@Test (testName = "Product in cart",priority = 2)
+@Test (testName = "Products in cart by name",priority = 2)
     public void ProductsinCart() throws InterruptedException {
 
     Thread.sleep(1500);
@@ -65,13 +68,23 @@ public void Beforeall(){
     listica.add("Printed Summer Dress");
     listica.add("Printed Dress");
 
-
          //Assert.assertEquals(carrito.getsProductsNameInCart(),listica);
     assertThat(carrito.getsProductsNameInCart(),containsInAnyOrder(listica.toArray()));
+    assertThat(carrito.getsProductsNameInCart(),hasItems("Blouse","Faded Short Sleeve T-shirts"));
+
     //Assert.assertEquals(carrito.getsProductsNameInCart(),listica);
     System.out.println("Listica: "+ listica);
     System.out.println("Prendas desde metodo: "+ carrito.getsProductsNameInCart().toArray());
     System.out.println("Prendas desde metodo: "+ carrito.getsProductsNameInCart().size());
+
+
+    /*
+    assertThat(carrito.getsProductsNameInCart()).containsExactly("Printed Summer Dress","Blouse","Printed Dress","Faded Short Sleeve T-shirts")
+                                                .endsWith("Faded Short Sleeve T-shirts")
+                                                .hasSize(4);
+
+        */
 }
+
 
 }
