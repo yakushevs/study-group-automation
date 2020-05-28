@@ -18,6 +18,8 @@ public class ShoppingCart extends PageBase {
     WebElement contador;
     @FindBy(xpath = "//a[contains(@title,'View my shopping cart')]")
     WebElement carritoHeader;
+    @FindBy(xpath = "//td[@id='total_product']")
+    WebElement carritoTotal;
     @FindAll
     (@FindBy(xpath = "//a[@class='cart_block_product_name']"))
        List <WebElement> productInCart;
@@ -49,6 +51,14 @@ public class ShoppingCart extends PageBase {
         System.out.println("Numero de productos: "+numberofproducts);
 
         return numberofproducts;
+    }
+
+    public float getTotalInShoppingCart(){
+
+        carritoHeader.click();
+            System.out.println("Shopping cart price "+carritoTotal.getText().trim().replace("$",""));
+        return Float.parseFloat((carritoTotal.getText().trim().replace("$","")));
+
     }
 
 }

@@ -3,7 +3,6 @@ package com.auto.ui.PageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import java.util.List;
@@ -22,12 +21,17 @@ public class Product extends PageBase {
     WebElement tabBestseller;
     @FindBy(xpath = "//span[contains(@class,'continue')]")
     WebElement btnContinue;
+    @FindBy (xpath = "//span[@id='layer_cart_product_quantity']")
+    WebElement productQty;
+    @FindBy (xpath ="//span[@id='layer_cart_product_price']")
+    WebElement productPrice;
     @FindAll(@FindBy(xpath="//ul[@id='homefeatured']//li[contains(@class,'ajax_block_product')]"))
     List<WebElement> productsPopular;
     @FindAll(@FindBy(xpath="//ul[@id='blockbestsellers']//li[contains(@class,'ajax_block_product')]"))
     List<WebElement> productBestSeller;
 
 
+        private  float Total_price=0;
 
         public Product (WebDriver driver) {
 
@@ -107,16 +111,35 @@ public class Product extends PageBase {
         selectTab(tabName);
         WebElement product=selectAnyProduct(tabName,productName);
         addToCart(product);
+        System.out.println("Precio de poducto es "+ getValueProduct(product) + " " + productName);
+        Total_price += getValueProduct(product);
         continueShopping();
-    }
+        System.out.println("*****total price **** "+ getTotalPrice());
+        }
 
         public void addToCart_continueShopping(String tabName,int productIndex) throws InterruptedException {
 
             selectTab(tabName);
             WebElement product=selectAnyProduct(tabName,productIndex);
             addToCart(product);
+            System.out.println("Precio de poducto es "+ getValueProduct(product));
+            Total_price += getValueProduct(product);
             continueShopping();
+            System.out.println("*****total price **** "+ getTotalPrice());
 
+
+        }
+
+        public  float getTotalPrice(){
+
+            return Total_price;
+        }
+
+        public float getValueProduct(WebElement product){
+
+
+                //System.out.println("sumatoria precio "+ Total_price);
+                return Float.parseFloat(productPrice.getText().replace("$",""))/Float.parseFloat(productQty.getText().trim());
         }
 
 }

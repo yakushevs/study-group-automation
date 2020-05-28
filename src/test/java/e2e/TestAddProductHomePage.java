@@ -86,5 +86,12 @@ public void Beforeall(){
         */
 }
 
+@Test(testName="comparing the price",priority = 3)
+    public void CheckTotalPrice() throws InterruptedException{
+            System.out.println("The total amount is " + homepage.getTotalPrice());
+        Assert.assertEquals(carrito.getTotalInShoppingCart(), homepage.getTotalPrice());
+
+}
+
 
 }
