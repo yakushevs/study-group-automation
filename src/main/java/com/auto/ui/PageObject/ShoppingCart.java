@@ -83,7 +83,7 @@ public class ShoppingCart extends PageBase {
             WebElement item = i.next();
                 if(item.getText().contains(vestido)) {
                    // System.out.println("El vestido es " + item.getText());
-                    qty= Integer.parseInt(item.findElement(By.xpath(".//input[contains(@name,'quantity')]")).getAttribute("value"));
+                    qty= Integer.parseInt(item.findElement(By.xpath("//input[contains(@name,'quantity_"+r+"')]")).getAttribute("value"));
                     System.out.println("Qty: "+qty);
                      Units=item.findElement(By.xpath("//span[contains(@class,'price') and contains(@id,'product_price_"+r+"')]")).getText();
                       unit_price=Float.parseFloat(Units.replace("$","").trim());
