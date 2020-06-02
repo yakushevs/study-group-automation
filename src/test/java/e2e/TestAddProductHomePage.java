@@ -88,10 +88,23 @@ public void Beforeall(){
 
 @Test(testName="comparing the price",priority = 3)
     public void CheckTotalPrice() throws InterruptedException{
-            System.out.println("The total amount is " + homepage.getTotalPrice());
+/*
+    homepage.Total_price=50;
+    System.out.println("total amount modificado " + homepage.Total_price);
+*/
+        System.out.println("The total amount is " + homepage.getTotalPrice());
         Assert.assertEquals(carrito.getTotalInShoppingCart(), homepage.getTotalPrice());
 
 }
+    @Test(testName="Check price after dropped Item",priority = 4)
+    public void CheckTrashcan() throws InterruptedException{
+
+
+            //Printed Dress
+
+        Assert.assertEquals(homepage.getTotalPrice()-carrito.DropItemfromCart("Printed Dress"), carrito.getTotalInShoppingCart());
+
+    }
 
 
 }

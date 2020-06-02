@@ -31,7 +31,7 @@ public class Product extends PageBase {
     List<WebElement> productBestSeller;
 
 
-        private  float Total_price=0;
+        private float Total_price=0;
 
         public Product (WebDriver driver) {
 
@@ -139,7 +139,7 @@ public class Product extends PageBase {
 
 
                 //System.out.println("sumatoria precio "+ Total_price);
-                return Float.parseFloat(productPrice.getText().replace("$",""))/Float.parseFloat(productQty.getText().trim());
+                return Float.parseFloat(productPrice.getText().replace("$",""))/Float.parseFloat(productQty.getText());
         }
 
 }
