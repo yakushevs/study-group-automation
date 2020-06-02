@@ -2,14 +2,12 @@ package com.auto.ui.PageObject;
 
 
 import org.apache.commons.compress.utils.Lists;
-import org.apache.commons.lang3.ObjectUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
-import sun.invoke.empty.Empty;
-import sun.security.util.Length;
+
 
 
 import java.util.*;
@@ -78,8 +76,7 @@ public class ShoppingCart extends PageBase {
             int r=1;
             int qty;
             String Units;
-            float unit_price;
-            float total_vestidoBorrado=0;
+            float unit_price, total_vestidoBorrado=0;
            // String vestido="Blouse";
 
             while (i.hasNext()){
@@ -90,8 +87,8 @@ public class ShoppingCart extends PageBase {
                     System.out.println("Qty: "+qty);
                      Units=item.findElement(By.xpath("//span[contains(@class,'price') and contains(@id,'product_price_"+r+"')]")).getText();
                       unit_price=Float.parseFloat(Units.replace("$","").trim());
-                      System.out.println("Precio sin Trans "+Units);
-                      System.out.println("Unit price "+unit_price);
+                      System.out.println("Precio sin Trans "+ Units);
+                      System.out.println("Unit price "+ unit_price);
                       total_vestidoBorrado=qty*unit_price;
                       item.findElement(By.xpath("//a[starts-with(@id,'"+r+"_')]")).click();
                       //item.findElement(By.xpath(".//i[@class='icon-trash']")).click();
