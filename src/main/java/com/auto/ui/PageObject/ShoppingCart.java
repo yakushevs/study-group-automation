@@ -90,6 +90,7 @@ public class ShoppingCart extends PageBase {
                       System.out.println("Precio sin Trans "+ Units);
                       System.out.println("Unit price "+ unit_price);
                       total_vestidoBorrado=qty*unit_price;
+                      System.out.println("total value "+ total_vestidoBorrado);
                       item.findElement(By.xpath("//a[starts-with(@id,'"+r+"_')]")).click();
                       //item.findElement(By.xpath(".//i[@class='icon-trash']")).click();
                     Thread.sleep(1500);
