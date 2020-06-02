@@ -4,6 +4,7 @@ import com.auto.ui.PageObject.Product;
 import com.auto.ui.PageObject.ShoppingCart;
 import org.apache.commons.compress.utils.Lists;
 import org.assertj.core.api.Condition;
+import org.decimal4j.util.DoubleRounder;
 import org.hamcrest.Matchers;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
@@ -102,7 +103,7 @@ public void Beforeall(){
 
             //Printed Dress
 
-        Assert.assertEquals(homepage.getTotalPrice()-carrito.DropItemfromCart("Printed Dress"), carrito.getTotalInShoppingCart());
+        Assert.assertEquals(Math.round((homepage.getTotalPrice()-carrito.DropItemfromCart("Printed Summer Dress"))*100.0)/100.0, Math.round((carrito.getTotalInShoppingCart())*100.0)/100.0);
 
     }
 

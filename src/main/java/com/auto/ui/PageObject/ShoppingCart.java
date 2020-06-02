@@ -73,9 +73,9 @@ public class ShoppingCart extends PageBase {
         carritoHeader.click();
         VerficationTable= driver.findElements(By.xpath("//tr[contains(@class,'cart_item')]"));
         i = VerficationTable.iterator();
-            int r=1;
+
             int qty;
-            String Units;
+            String Units,u;
             float unit_price, total_vestidoBorrado=0;
            // String vestido="Blouse";
 
@@ -83,20 +83,25 @@ public class ShoppingCart extends PageBase {
             WebElement item = i.next();
                 if(item.getText().contains(vestido)) {
                    // System.out.println("El vestido es " + item.getText());
-                    qty= Integer.parseInt(item.findElement(By.xpath("//input[contains(@name,'quantity_"+r+"')]")).getAttribute("value"));
-                    System.out.println("Qty: "+qty);
-                     Units=item.findElement(By.xpath("//span[contains(@class,'price') and contains(@id,'product_price_"+r+"')]")).getText();
+                    //td[@class="cart_unit"]//span[contains(@class,'price') and contains(@id,'product_price_')]
+                    qty= Integer.parseInt(item.findElement(By.xpath("//td[contains(@class,'cart_quantity')]//input[contains(@type,'text')]")).getAttribute("value"));
+                    //qty= Integer.parseInt(item.findElement(By.xpath("//input[contains(@name,'quantity_"+r+"')]")).getAttribute("value"));
+                    u= item.findElement(By.xpath("td[@class='cart_unit']//span[contains(@class,'price') and contains(@id,'product_price_')]")).getText().replace("$","");
+                    Units=u.substring(0,u.indexOf(" "));
+                    System.out.println("Qty: "+qty );
+
+                     //Units=item.findElement(By.xpath("//span[contains(@class,'price') and contains(@id,'product_price_"+r+"')]")).getText();
                       unit_price=Float.parseFloat(Units.replace("$","").trim());
                       System.out.println("Precio sin Trans "+ Units);
                       System.out.println("Unit price "+ unit_price);
                       total_vestidoBorrado=qty*unit_price;
                       System.out.println("total value "+ total_vestidoBorrado);
-                      item.findElement(By.xpath("//a[starts-with(@id,'"+r+"_')]")).click();
-                      //item.findElement(By.xpath(".//i[@class='icon-trash']")).click();
+                      //item.findElement(By.xpath("//a[starts-with(@id,'"+r+"_')]")).click();
+                      item.findElement(By.xpath(".//i[@class='icon-trash']")).click();
                     Thread.sleep(1500);
                 }
 
-                r++;
+
                    }
             return total_vestidoBorrado;
         }
