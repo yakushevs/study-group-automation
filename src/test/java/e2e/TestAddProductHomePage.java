@@ -35,8 +35,9 @@ public void Beforeall(){
 
         homepage.addToCart_continueShopping("popular","Printed Dress");
         homepage.addToCart_continueShopping("popular","Faded Short Sleeve T-shirts");
-
-        Assert.assertEquals(carrito.getsNumberOfProducts(),5);
+        homepage.addToCart_continueShopping("popular","Printed Chiffon Dress");
+        homepage.addToCart_continueShopping("popular","Printed Chiffon Dress");
+        Assert.assertEquals(carrito.getsNumberOfProducts(),7);
 
 
 }
@@ -65,6 +66,8 @@ public void Beforeall(){
     listica.add("Faded Short Sleeve T-shirts");
     listica.add("Printed Summer Dress");
     listica.add("Printed Dress");
+    listica.add("Printed Chiffon Dress");
+
 
          //Assert.assertEquals(carrito.getsProductsNameInCart(),listica);
     assertThat(carrito.getsProductsNameInCart(),containsInAnyOrder(listica.toArray()));
@@ -100,7 +103,7 @@ public void Beforeall(){
 
             //Printed Dress
 
-        Assert.assertEquals(Math.round((homepage.getTotalPrice()-carrito.DropItemfromCart("Printed Summer Dress"))*100.0)/100.0, Math.round((carrito.getTotalInShoppingCart())*100.0)/100.0);
+        Assert.assertEquals(Math.round((homepage.getTotalPrice()-carrito.DropItemfromCart("Printed Chiffon Dress"))*100.0)/100.0, Math.round((carrito.getTotalInShoppingCart())*100.0)/100.0);
 
     }
 
