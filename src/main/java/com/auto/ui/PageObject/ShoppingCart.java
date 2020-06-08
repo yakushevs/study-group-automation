@@ -2,6 +2,7 @@ package com.auto.ui.PageObject;
 
 
 import org.apache.commons.compress.utils.Lists;
+import org.assertj.core.api.SpliteratorAssert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -24,13 +25,13 @@ public class ShoppingCart extends PageBase {
 
     @FindAll
     (@FindBy(xpath = "//a[@class='cart_block_product_name']"))
-       List <WebElement> productInCart;
+    List <WebElement> productInCart;
     List <String> prendas = Lists.newArrayList();
-
-    //@FindAll(@FindBy(xpath = "//td[@class='cart_description']"))
     List <WebElement> VerficationTable;
     Iterator <WebElement> i;
 
+    @FindAll(@FindBy(xpath = "//a[@class='cart_block_product_name']"))
+    List <WebElement> itemsOnaList;
     //List <String> prendas= new ArrayList<>();
 
     public ShoppingCart(WebDriver driver) {
@@ -60,11 +61,11 @@ public class ShoppingCart extends PageBase {
         return numberofproducts;
     }
 
-    public float getTotalInShoppingCart(){
-
+    public float getTotalInShoppingCart() throws InterruptedException {
+        Thread.sleep(1500);
         carritoHeader.click();
-            System.out.println("Shopping cart price "+carritoTotal.getText().trim().replace("$",""));
-        return Float.parseFloat((carritoTotal.getText().trim().replace("$","")));
+            System.out.println("Shopping cart price Method "+carritoTotal.getText().replace("$",""));
+        return Float.parseFloat((carritoTotal.getText().replace("$","")));
 
     }
 
@@ -98,6 +99,32 @@ public class ShoppingCart extends PageBase {
             return total_vestidoBorrado;
         }
 
+
+    public float DropItemfromlist(String vestido) throws InterruptedException {
+
+        hoverElements(carritoHeader);
+        float shippingPrice=0, totalpriceAfterdelete=0;
+            ////dt//span[@class='remove_link']
+        for (WebElement item: itemsOnaList){
+            System.out.println("item prenda "+ item.getAttribute("title"));
+
+            if(item.getAttribute("title").contains(vestido)){
+                item.findElement(By.xpath("./../../..//a[@class='ajax_cart_block_remove_link']")).click();
+                Thread.sleep(1500);
+                shippingPrice=Float.parseFloat(item.findElement(By.xpath("//span[@class='price cart_block_shipping_cost ajax_cart_shipping_cost']")).getText().replace("$",""));
+                totalpriceAfterdelete =Float.parseFloat(item.findElement(By.xpath("//span[@class='price cart_block_total ajax_block_cart_total']")).getText().replace("$",""));
+                System.out.println("Total "+ totalpriceAfterdelete);
+                System.out.println("Shipping "+ shippingPrice);
+                System.out.println("Total deleted without Shipping "+ (totalpriceAfterdelete-shippingPrice));
+
+            }
+
+        }
+
+
+        return (totalpriceAfterdelete-shippingPrice);
     }
+
+}
 
 

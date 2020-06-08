@@ -78,13 +78,13 @@ public void Beforeall(){
     System.out.println("Prendas desde metodo: "+ carrito.getsProductsNameInCart().toArray());
     System.out.println("Prendas desde metodo: "+ carrito.getsProductsNameInCart().size());
 
+/*
 
-    /*
     assertThat(carrito.getsProductsNameInCart()).containsExactly("Printed Summer Dress","Blouse","Printed Dress","Faded Short Sleeve T-shirts")
                                                 .endsWith("Faded Short Sleeve T-shirts")
                                                 .hasSize(4);
+*/
 
-        */
 }
 
 @Test(testName="comparing the price",priority = 3)
@@ -97,13 +97,22 @@ public void Beforeall(){
         Assert.assertEquals(carrito.getTotalInShoppingCart(), homepage.getTotalPrice());
 
 }
-    @Test(testName="Check price after dropped Item",priority = 4)
+    @Test(testName="Check price after dropped Item",priority = 4,enabled = false)
     public void CheckTrashcan() throws InterruptedException{
 
 
             //Printed Dress
 
         Assert.assertEquals(Math.round((homepage.getTotalPrice()-carrito.DropItemfromCart("Printed Chiffon Dress"))*100.0)/100.0, Math.round((carrito.getTotalInShoppingCart())*100.0)/100.0);
+
+    }
+    @Test(testName="Check price after dropped Item from list",priority = 5)
+    public void CheckListTrashcan() throws InterruptedException{
+
+
+        //Printed Dress
+
+        Assert.assertEquals(carrito.DropItemfromlist("Printed Chiffon Dress"), carrito.getTotalInShoppingCart());
 
     }
 
