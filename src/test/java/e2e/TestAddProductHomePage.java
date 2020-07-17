@@ -122,7 +122,7 @@ public void Beforeall(){
     }
 
 
-    @Test(testName="Signining in with products",priority = 6)
+    @Test(testName="Signining in with productscls",priority = 6)
     public void CheckoutproductsCartList() throws InterruptedException{
 
         checkout.clickCheckout();
