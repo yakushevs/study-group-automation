@@ -1,5 +1,7 @@
 package e2e;
 
+import com.auto.ui.PageObject.Checkout;
+import com.auto.ui.PageObject.Login;
 import com.auto.ui.PageObject.Product;
 import com.auto.ui.PageObject.ShoppingCart;
 import org.apache.commons.compress.utils.Lists;
@@ -21,12 +23,15 @@ public class TestAddProductHomePage extends TestBase {
 
     Product homepage ;
     ShoppingCart carrito;
+    Checkout checkout;
+    Login loginandOut;
 
 @BeforeSuite
 public void Beforeall(){
     homepage=PageFactory.initElements(driver,Product.class);
     carrito= PageFactory.initElements(driver,ShoppingCart.class);
-
+    checkout= PageFactory.initElements(driver,Checkout.class);
+    loginandOut=PageFactory.initElements(driver,Login.class);
 }
 
 
@@ -116,5 +121,18 @@ public void Beforeall(){
 
     }
 
+
+    @Test(testName="Signining in with products",priority = 6)
+    public void CheckoutproductsCartList() throws InterruptedException{
+
+        checkout.clickCheckout();
+        loginandOut.login("juandjllo@yandex.com","laclave12345");
+        Thread.sleep(5000);
+
+        //Printed Dress
+
+        //Assert.assertEquals(carrito.DropItemfromlist("Printed Chiffon Dress"), carrito.getTotalInShoppingCart());
+
+    }
 
 }
