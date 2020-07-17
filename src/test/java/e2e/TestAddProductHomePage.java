@@ -4,6 +4,7 @@ import com.auto.ui.PageObject.Checkout;
 import com.auto.ui.PageObject.Login;
 import com.auto.ui.PageObject.Product;
 import com.auto.ui.PageObject.ShoppingCart;
+import com.google.gson.JsonObject;
 import org.apache.commons.compress.utils.Lists;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
@@ -122,17 +123,35 @@ public void Beforeall(){
     }
 
 
-    @Test(testName="Signining in with productscls",priority = 6)
+    @Test(testName="Signining in with products",priority = 6)
     public void CheckoutproductsCartList() throws InterruptedException{
 
         checkout.clickCheckout();
+        Assert.assertEquals(loginandOut.isLogin(),false);
+
         loginandOut.login("juandjllo@yandex.com","laclave12345");
         Thread.sleep(5000);
 
+        Assert.assertEquals(loginandOut.isLogin(),true);
         //Printed Dress
 
         //Assert.assertEquals(carrito.DropItemfromlist("Printed Chiffon Dress"), carrito.getTotalInShoppingCart());
 
     }
+
+    @Test(testName="Checking delivery address",priority = 7)
+    public void CheckdeliveryAddress() throws InterruptedException{
+
+
+        JsonObject addressDeliverytoTest = new JsonObject();
+        addressDeliverytoTest.addProperty("Name","Juan David");
+        addressDeliverytoTest.addProperty("Address","4545");
+        addressDeliverytoTest.addProperty("City","dubai, Arizona 00000");
+        addressDeliverytoTest.addProperty("Country","United States");
+        addressDeliverytoTest.addProperty("Phone","3333333333");
+
+        Assert.assertEquals(checkout.getDeliveryaddress(),addressDeliverytoTest);
+    }
+
 
 }

@@ -16,6 +16,9 @@ public class Login extends PageBase{
     WebElement btnSubmit;
     @FindBy (xpath = "//a[@class='logout']")
     WebElement btnLogout;
+    @FindBy (xpath = "//span[contains(text(),'Juan David')]")
+    WebElement lblName;
+
 
     public Login(WebDriver driver) {
         super(driver);
@@ -36,6 +39,17 @@ public void login (String email, String pwd){
 public void logout(){
 
         btnLogout.click();
+
+}
+public boolean isLogin(){
+
+        try {
+              return btnLogout.isDisplayed();
+
+        } catch (Exception e){
+            return false;
+
+        }
 
 }
 
