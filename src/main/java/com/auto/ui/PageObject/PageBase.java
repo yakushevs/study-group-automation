@@ -1,5 +1,6 @@
 package com.auto.ui.PageObject;
 
+import com.sun.tools.internal.xjc.model.CElement;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -23,6 +24,16 @@ public class PageBase {
 
         over.moveToElement(element).perform();
 
+
+    }
+
+    public boolean getRadiobuttonStatus(WebElement element){
+
+        return element.isEnabled();
+    }
+    public boolean getCheckBoxStatus(WebElement element){
+
+        return element.isSelected();
 
     }
 

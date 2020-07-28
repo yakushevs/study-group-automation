@@ -1,5 +1,6 @@
 package com.auto.ui.PageObject;
 
+import apple.laf.JRSUIConstants;
 import com.google.gson.JsonObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -22,6 +23,17 @@ public class Checkout extends ShoppingCart {
     WebElement lblcountry;
     @FindBy(xpath = "//ul[@id='address_delivery']//li[contains(@class,'address_phone')]")
     WebElement lblphone;
+    @FindBy (xpath = "//button[contains(@name,'process') and @type='submit']")
+    WebElement btnProceedCheckout;
+    @FindBy (xpath = "//input[contains(@id,'delivery_option_')]")
+            WebElement radioDeliveryStatus;
+
+    @FindBy (xpath = "//input[@type='checkbox']")
+        WebElement checkboxStatus;
+    @FindBy (xpath = "//p[@class='fancybox-error']")
+        WebElement txtWarning;
+    @FindBy( xpath = "//a[@class='fancybox-item fancybox-close']")
+            WebElement btnWarningClose;
 
 
     public Checkout(WebDriver driver) {
@@ -36,9 +48,10 @@ public class Checkout extends ShoppingCart {
         checkoutBtnCart.click();
     }
 
-    public void clickCheckout(){
-
-        checkoutBtn.click();
+    public void clickCheckout(Boolean proceed){
+        if (!proceed) {
+        checkoutBtn.click();}
+        else { btnProceedCheckout.click();}
     }
 
 
@@ -55,4 +68,33 @@ public class Checkout extends ShoppingCart {
 
         return addressDelivery;
     }
+
+
+    public boolean getDeliveryStatus(){
+
+       return super.getRadiobuttonStatus(radioDeliveryStatus);
+
+
+    }
+    public boolean getTermofServiceStatus(){
+
+        return super.getCheckBoxStatus(checkboxStatus);
+
+    }
+    public void setTermofService(){
+        if (!getTermofServiceStatus()){
+            checkboxStatus.click();
+        }
+    }
+
+    public String getWarningText(){
+
+        return txtWarning.getText();
+    }
+
+    public void  clickclosedwarrning(){
+                btnWarningClose.click();
+    }
+
 }
+

@@ -126,7 +126,7 @@ public void Beforeall(){
     @Test(testName="Signining in with products",priority = 6)
     public void CheckoutproductsCartList() throws InterruptedException{
 
-        checkout.clickCheckout();
+        checkout.clickCheckout(false);
         Assert.assertEquals(loginandOut.isLogin(),false);
 
         loginandOut.login("juandjllo@yandex.com","laclave12345");
@@ -153,5 +153,23 @@ public void Beforeall(){
         Assert.assertEquals(checkout.getDeliveryaddress(),addressDeliverytoTest);
     }
 
+    @Test(testName="proceed to checkout",priority = 8)
+    public void ProceedTocheckout() throws InterruptedException{
 
+        checkout.clickCheckout(true);
+
+        Assert.assertEquals(true,checkout.getDeliveryStatus());
+
+        Assert.assertEquals(false,checkout.getTermofServiceStatus());
+
+        checkout.clickCheckout(true);
+        Thread.sleep(1500);
+        Assert.assertEquals("You must agree to the terms of service before continuing.",checkout.getWarningText());
+        Thread.sleep(1500);
+        checkout.clickclosedwarrning();
+
+        checkout.setTermofService();
+        Assert.assertEquals(true,checkout.getTermofServiceStatus());
+
+    }
 }
