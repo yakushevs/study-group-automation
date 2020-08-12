@@ -1,5 +1,6 @@
 package com.auto.ui.PageObject;
 
+import org.apache.commons.compress.utils.Lists;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -29,6 +30,7 @@ public class Product extends PageBase {
     List<WebElement> productsPopular;
     @FindAll(@FindBy(xpath="//ul[@id='blockbestsellers']//li[contains(@class,'ajax_block_product')]"))
     List<WebElement> productBestSeller;
+
 
 
         private float Total_price=0;
@@ -107,6 +109,8 @@ public class Product extends PageBase {
             Thread.sleep(1500);
         }
     public void addToCart_continueShopping(String tabName,String productName) throws InterruptedException {
+        if(SummaryProducts.indexOf(productName)==-1){
+            SummaryProducts.add(productName);}
 
         selectTab(tabName);
         WebElement product=selectAnyProduct(tabName,productName);
@@ -117,11 +121,22 @@ public class Product extends PageBase {
         System.out.println("*****total price **** "+ getTotalPrice());
         }
 
+        public String getNamebyIndex(WebElement product) throws InterruptedException{
+
+            return product.findElement(By.xpath("//span[@id='layer_cart_product_title']")).getText().trim();
+
+        }
+
+
+
         public void addToCart_continueShopping(String tabName,int productIndex) throws InterruptedException {
 
             selectTab(tabName);
             WebElement product=selectAnyProduct(tabName,productIndex);
             addToCart(product);
+            if(SummaryProducts.indexOf(getNamebyIndex(product))==-1){
+            SummaryProducts.add(getNamebyIndex(product));}
+
             System.out.println("Precio de poducto es "+ getValueProduct(product));
             Total_price += getValueProduct(product);
             continueShopping();
@@ -134,6 +149,12 @@ public class Product extends PageBase {
 
             return Total_price;
         }
+
+        public  void setTotalPrice(float valor){
+
+        Total_price=valor;
+        }
+
 
         public float getValueProduct(WebElement product){
 

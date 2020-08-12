@@ -1,15 +1,20 @@
 package com.auto.ui.PageObject;
 
 import com.sun.tools.internal.xjc.model.CElement;
+import org.apache.commons.compress.utils.Lists;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import sun.awt.image.SurfaceManager;
+
+import java.util.List;
 
 public class PageBase {
 
 
     public Actions over;
     public WebDriver driver;
+    public static List<String> SummaryProducts = Lists.newArrayList();
 
 
     public PageBase(WebDriver driver){
@@ -39,3 +44,4 @@ public class PageBase {
 
 
 }
+

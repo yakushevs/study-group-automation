@@ -1,9 +1,6 @@
 package e2e;
 
-import com.auto.ui.PageObject.Checkout;
-import com.auto.ui.PageObject.Login;
-import com.auto.ui.PageObject.Product;
-import com.auto.ui.PageObject.ShoppingCart;
+import com.auto.ui.PageObject.*;
 import com.google.gson.JsonObject;
 import org.apache.commons.compress.utils.Lists;
 import org.openqa.selenium.support.PageFactory;
@@ -42,8 +39,8 @@ public void Beforeall(){
         homepage.addToCart_continueShopping("popular","Printed Dress");
         homepage.addToCart_continueShopping("popular","Faded Short Sleeve T-shirts");
         homepage.addToCart_continueShopping("popular","Printed Chiffon Dress");
-        homepage.addToCart_continueShopping("popular","Printed Chiffon Dress");
-        Assert.assertEquals(carrito.getsNumberOfProducts(),7);
+        //homepage.addToCart_continueShopping("popular","Printed Chiffon Dress");
+        Assert.assertEquals(carrito.getsNumberOfProducts(),6);
 
 
 }
@@ -103,13 +100,17 @@ public void Beforeall(){
         Assert.assertEquals(carrito.getTotalInShoppingCart(), homepage.getTotalPrice());
 
 }
-    @Test(testName="Check price after dropped Item",priority = 4,enabled = false)
+    @Test(testName="Check price after dropped Item",priority = 4,enabled = true)
     public void CheckTrashcan() throws InterruptedException{
 
 
             //Printed Dress
 
-        Assert.assertEquals(Math.round((homepage.getTotalPrice()-carrito.DropItemfromCart("Printed Chiffon Dress"))*100.0)/100.0, Math.round((carrito.getTotalInShoppingCart())*100.0)/100.0);
+        //Assert.assertEquals(Math.round((homepage.getTotalPrice()-carrito.DropItemfromCart("Blouse"))*100.0)/100.0, Math.round((carrito.getTotalInShoppingCart())*100.0)/100.0);
+        homepage.setTotalPrice(carrito.DropItemfromlist("Blouse"));
+
+        Assert.assertEquals(homepage.getTotalPrice(), carrito.getTotalInShoppingCart());
+
 
     }
     @Test(testName="Check price after dropped Item from list",priority = 5)
@@ -117,8 +118,9 @@ public void Beforeall(){
 
 
         //Printed Dress
+        homepage.setTotalPrice(carrito.DropItemfromlist("Printed Chiffon Dress"));
 
-        Assert.assertEquals(carrito.DropItemfromlist("Printed Chiffon Dress"), carrito.getTotalInShoppingCart());
+        Assert.assertEquals(homepage.getTotalPrice(), carrito.getTotalInShoppingCart());
 
     }
 
@@ -167,9 +169,31 @@ public void Beforeall(){
         Assert.assertEquals("You must agree to the terms of service before continuing.",checkout.getWarningText());
         Thread.sleep(1500);
         checkout.clickclosedwarrning();
-
         checkout.setTermofService();
+
         Assert.assertEquals(true,checkout.getTermofServiceStatus());
 
+        checkout.clickCheckout(true);
+
     }
+
+
+    @Test(testName="payment verification",priority = 9)
+    public void PaymentandConfirmation() throws InterruptedException {
+
+
+
+    Assert.assertEquals(homepage.getTotalPrice(),carrito.getTotalInShoppingCart());
+    Assert.assertEquals(homepage.getTotalPrice()+2,checkout.getTotal_price_Checkout());
+
+    System.out.println("Precio en payment es "+carrito.getTotalInShoppingCart());
+
+    System.out.println("productos del summary " + PageBase.SummaryProducts);
+
+    Assert.assertEquals(carrito.getsProductsNameInCart(),PageBase.SummaryProducts);
+        //assertThat(PageBase.SummaryProducts,containsInAnyOrder(carrito.getsProductsNameInCart().toArray()));
+
+    }
+
+
 }

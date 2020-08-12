@@ -34,6 +34,8 @@ public class Checkout extends ShoppingCart {
         WebElement txtWarning;
     @FindBy( xpath = "//a[@class='fancybox-item fancybox-close']")
             WebElement btnWarningClose;
+    @FindBy( xpath = "//span[@id='total_price']")
+    WebElement totat_priceChekout;
 
 
     public Checkout(WebDriver driver) {
@@ -94,6 +96,11 @@ public class Checkout extends ShoppingCart {
 
     public void  clickclosedwarrning(){
                 btnWarningClose.click();
+    }
+
+    public float getTotal_price_Checkout(){
+
+        return Float.parseFloat(totat_priceChekout.getText().substring(1,totat_priceChekout.getText().length()));
     }
 
 }

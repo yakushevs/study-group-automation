@@ -32,6 +32,8 @@ public class ShoppingCart extends PageBase {
 
     @FindAll(@FindBy(xpath = "//a[@class='cart_block_product_name']"))
     List <WebElement> itemsOnaList;
+
+
     //List <String> prendas= new ArrayList<>();
 
     public ShoppingCart(WebDriver driver) {
@@ -91,11 +93,13 @@ public class ShoppingCart extends PageBase {
                       total_vestidoBorrado=qty*unit_price;
                       System.out.println("total eliminate value "+ total_vestidoBorrado);
                       item.findElement(By.xpath(".//i[@class='icon-trash']")).click();
+                      SummaryProducts.remove(SummaryProducts.indexOf(vestido));
                     Thread.sleep(1500);
                 }
 
 
                    }
+        System.out.println("Drop item from cart summary products: " + SummaryProducts);
             return total_vestidoBorrado;
         }
 
@@ -104,12 +108,13 @@ public class ShoppingCart extends PageBase {
 
         hoverElements(carritoHeader);
         float shippingPrice=0, totalpriceAfterdelete=0;
-            ////dt//span[@class='remove_link']
+
         for (WebElement item: itemsOnaList){
             System.out.println("item prenda "+ item.getAttribute("title"));
 
             if(item.getAttribute("title").contains(vestido)){
                 item.findElement(By.xpath("./../../..//a[@class='ajax_cart_block_remove_link']")).click();
+                SummaryProducts.remove(SummaryProducts.indexOf(vestido));
                 Thread.sleep(1500);
                 shippingPrice=Float.parseFloat(item.findElement(By.xpath("//span[@class='price cart_block_shipping_cost ajax_cart_shipping_cost']")).getText().replace("$",""));
                 totalpriceAfterdelete =Float.parseFloat(item.findElement(By.xpath("//span[@class='price cart_block_total ajax_block_cart_total']")).getText().replace("$",""));
@@ -121,7 +126,7 @@ public class ShoppingCart extends PageBase {
 
         }
 
-
+            System.out.println("Dropitemfrom list summary products: " + SummaryProducts);
         return (totalpriceAfterdelete-shippingPrice);
     }
 
