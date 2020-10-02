@@ -146,7 +146,7 @@ public void Beforeall(){
 
 
         JsonObject addressDeliverytoTest = new JsonObject();
-        addressDeliverytoTest.addProperty("Name","Juan David");
+        addressDeliverytoTest.addProperty("Name","Juan David Jllo");
         addressDeliverytoTest.addProperty("Address","4545");
         addressDeliverytoTest.addProperty("City","dubai, Arizona 00000");
         addressDeliverytoTest.addProperty("Country","United States");
