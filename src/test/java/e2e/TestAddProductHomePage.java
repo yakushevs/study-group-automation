@@ -183,14 +183,18 @@ public void Beforeall(){
 
 
 
-    Assert.assertEquals(homepage.getTotalPrice(),carrito.getTotalInShoppingCart());
+    //Assert.assertEquals(homepage.getTotalPrice(),carrito.getTotalInShoppingCart());
     Assert.assertEquals(homepage.getTotalPrice()+2,checkout.getTotal_price_Checkout());
 
-    System.out.println("Precio en payment es "+carrito.getTotalInShoppingCart());
+   // System.out.println("Precio en payment es "+carrito.getTotalInShoppingCart());
 
     System.out.println("productos del summary " + PageBase.SummaryProducts);
 
-    Assert.assertEquals(carrito.getsProductsNameInCart(),PageBase.SummaryProducts);
+    //Assert.assertEquals(carrito.getsProductsNameInCart(),PageBase.SummaryProducts);
+
+
+    checkout.clickbtnTransferwire();
+    Assert.assertEquals(checkout.getTotal_price_confirm(),homepage.getTotalPrice()+2);
         //assertThat(PageBase.SummaryProducts,containsInAnyOrder(carrito.getsProductsNameInCart().toArray()));
 
     }

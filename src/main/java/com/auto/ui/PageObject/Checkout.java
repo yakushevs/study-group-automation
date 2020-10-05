@@ -37,6 +37,11 @@ public class Checkout extends ShoppingCart {
     @FindBy( xpath = "//span[@id='total_price']")
     WebElement totat_priceChekout;
 
+    @FindBy(xpath = "//a[@class='bankwire']")
+    WebElement btnTransferbyWire;
+
+    @FindBy (xpath = "//*[@id='amount']")
+    WebElement getFloatprecio;
 
     public Checkout(WebDriver driver) {
         super(driver);
@@ -101,6 +106,17 @@ public class Checkout extends ShoppingCart {
     public float getTotal_price_Checkout(){
 
         return Float.parseFloat(totat_priceChekout.getText().substring(1,totat_priceChekout.getText().length()));
+    }
+
+
+    public float getTotal_price_confirm(){
+
+        return Float.parseFloat(getFloatprecio.getText().substring(1,getFloatprecio.getText().length()));
+    }
+
+    public void clickbtnTransferwire() {
+
+        btnTransferbyWire.click();
     }
 
 }
