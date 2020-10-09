@@ -6,6 +6,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class Checkout extends ShoppingCart {
 
@@ -42,6 +45,8 @@ public class Checkout extends ShoppingCart {
 
     @FindBy (xpath = "//*[@id='amount']")
     WebElement getFloatprecio;
+    @FindBy(xpath="//div[@class='box']")
+    WebElement orderReference;
 
     public Checkout(WebDriver driver) {
         super(driver);
@@ -118,6 +123,15 @@ public class Checkout extends ShoppingCart {
 
         btnTransferbyWire.click();
     }
+public String referenceorder(){
+    Pattern pattern = Pattern.compile("[A-Z]{9}", Pattern.CASE_INSENSITIVE);
+    Matcher matcher = pattern.matcher(orderReference.getText());
+    matcher.find();
+   String  orderReferenceText=  matcher.group(1);
+    System.out.println("Order Reference " + orderReferenceText);
+    return orderReferenceText;
 
+
+}
 }
 
