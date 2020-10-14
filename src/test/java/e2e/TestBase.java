@@ -11,7 +11,7 @@ public class TestBase  {
 
     @BeforeSuite
     public void BeforeAll() {
-        WebDriverManager.chromedriver().version("84.0.4147.30").setup();
+        WebDriverManager.chromedriver().version("86.0.4240.22").setup();
         driver = new ChromeDriver();
 
         driver.manage().window().maximize();

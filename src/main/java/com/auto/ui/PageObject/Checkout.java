@@ -2,10 +2,13 @@ package com.auto.ui.PageObject;
 
 import apple.laf.JRSUIConstants;
 import com.google.gson.JsonObject;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -47,13 +50,22 @@ public class Checkout extends ShoppingCart {
     WebElement getFloatprecio;
     @FindBy(xpath="//div[@class='box']")
     WebElement orderReference;
+    @FindBy(xpath="//button[@class='button btn btn-default button-medium']")
+    WebElement btnconfirmMyOrder;
+    @FindBy (xpath = "//a[contains(@class,'button-exclusive')]")
+    WebElement btnbacktoOrder;
 
-    public Checkout(WebDriver driver) {
+    @FindAll(@FindBy(xpath="//table[@id='order-list']//tr"))
+    List<WebElement> tableOrders;
+
+    String OrderNumberText;
+
+
+            public Checkout(WebDriver driver) {
         super(driver);
 
 
     }
-
 
     public void clickCheckoutCartlist(){
 
@@ -123,8 +135,15 @@ public class Checkout extends ShoppingCart {
 
         btnTransferbyWire.click();
     }
-public String referenceorder(){
-    Pattern pattern = Pattern.compile("[A-Z]{9}", Pattern.CASE_INSENSITIVE);
+    public void clickbtnconfirmorder() {
+
+        btnconfirmMyOrder.click();
+    }
+    public void clickbtnbacktoOrder(){
+        btnbacktoOrder.click();
+    }
+public String getreferenceorder(){
+    Pattern pattern = Pattern.compile("([A-Z]{9})");
     Matcher matcher = pattern.matcher(orderReference.getText());
     matcher.find();
    String  orderReferenceText=  matcher.group(1);
@@ -132,6 +151,20 @@ public String referenceorder(){
     return orderReferenceText;
 
 
+}
+
+public String validateOrderReference(String OrderReference){
+
+                for (WebElement OrderRow: tableOrders){
+                    OrderNumberText=OrderRow.findElement(By.xpath("//a[@class='color-myaccount']")).getText();
+                    if (OrderNumberText.contains(OrderReference)){
+                        System.out.println("The order is " + OrderNumberText);
+
+                        break;
+                    }
+
+                }
+    return OrderNumberText;
 }
 }
 

@@ -178,6 +178,7 @@ public void Beforeall(){
     }
 
 
+
     @Test(testName="payment verification",priority = 9)
     public void PaymentandConfirmation() throws InterruptedException {
 
@@ -196,6 +197,11 @@ public void Beforeall(){
     checkout.clickbtnTransferwire();
     Assert.assertEquals(checkout.getTotal_price_confirm(),homepage.getTotalPrice()+2);
         //assertThat(PageBase.SummaryProducts,containsInAnyOrder(carrito.getsProductsNameInCart().toArray()));
+    checkout.clickbtnconfirmorder();
+    String Ordertest= checkout.getreferenceorder();
+    checkout.clickbtnbacktoOrder();
+
+    Assert.assertEquals(Ordertest,checkout.validateOrderReference(Ordertest));
 
     }
 
