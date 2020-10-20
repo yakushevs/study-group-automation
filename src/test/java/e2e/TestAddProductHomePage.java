@@ -23,6 +23,7 @@ public class TestAddProductHomePage extends TestBase {
     ShoppingCart carrito;
     Checkout checkout;
     Login loginandOut;
+    MyAccount account;
 
 @BeforeSuite
 public void Beforeall(){
@@ -30,6 +31,8 @@ public void Beforeall(){
     carrito= PageFactory.initElements(driver,ShoppingCart.class);
     checkout= PageFactory.initElements(driver,Checkout.class);
     loginandOut=PageFactory.initElements(driver,Login.class);
+    account=PageFactory.initElements(driver,MyAccount.class);
+
 }
 
 
@@ -198,12 +201,17 @@ public void Beforeall(){
     Assert.assertEquals(checkout.getTotal_price_confirm(),homepage.getTotalPrice()+2);
         //assertThat(PageBase.SummaryProducts,containsInAnyOrder(carrito.getsProductsNameInCart().toArray()));
     checkout.clickbtnconfirmorder();
-    String Ordertest= checkout.getreferenceorder();
-    checkout.clickbtnbacktoOrder();
 
-    Assert.assertEquals(Ordertest,checkout.validateOrderReference(Ordertest));
+
 
     }
-
+    @Test(testName="My account and order history ",priority=10)
+    public void MyaccountandOrderHistory() throws InterruptedException {
+        String Ordertest= account.getreferenceorder();
+        account.clickbtnbacktoOrder();
+        Assert.assertEquals(Ordertest,account.validateOrderReference(Ordertest));
+        System.out.println("price order "+account.validateOrderPrice(Ordertest));
+        Assert.assertEquals(account.validateOrderPrice(Ordertest),homepage.getTotalPrice()+2);
+}
 
 }

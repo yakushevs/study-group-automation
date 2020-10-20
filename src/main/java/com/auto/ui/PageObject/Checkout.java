@@ -48,20 +48,13 @@ public class Checkout extends ShoppingCart {
 
     @FindBy (xpath = "//*[@id='amount']")
     WebElement getFloatprecio;
-    @FindBy(xpath="//div[@class='box']")
-    WebElement orderReference;
+
     @FindBy(xpath="//button[@class='button btn btn-default button-medium']")
     WebElement btnconfirmMyOrder;
-    @FindBy (xpath = "//a[contains(@class,'button-exclusive')]")
-    WebElement btnbacktoOrder;
-
-    @FindAll(@FindBy(xpath="//table[@id='order-list']//tr"))
-    List<WebElement> tableOrders;
-
-    String OrderNumberText;
 
 
-            public Checkout(WebDriver driver) {
+
+    public Checkout(WebDriver driver) {
         super(driver);
 
 
@@ -139,32 +132,6 @@ public class Checkout extends ShoppingCart {
 
         btnconfirmMyOrder.click();
     }
-    public void clickbtnbacktoOrder(){
-        btnbacktoOrder.click();
-    }
-public String getreferenceorder(){
-    Pattern pattern = Pattern.compile("([A-Z]{9})");
-    Matcher matcher = pattern.matcher(orderReference.getText());
-    matcher.find();
-   String  orderReferenceText=  matcher.group(1);
-    System.out.println("Order Reference " + orderReferenceText);
-    return orderReferenceText;
 
-
-}
-
-public String validateOrderReference(String OrderReference){
-
-                for (WebElement OrderRow: tableOrders){
-                    OrderNumberText=OrderRow.findElement(By.xpath("//a[@class='color-myaccount']")).getText();
-                    if (OrderNumberText.contains(OrderReference)){
-                        System.out.println("The order is " + OrderNumberText);
-
-                        break;
-                    }
-
-                }
-    return OrderNumberText;
-}
 }
 
